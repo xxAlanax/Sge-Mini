@@ -9,7 +9,7 @@ def main():
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
-            pass # TODO: chamar sistema.cadastrar_produto(...)
+            sistema.cadastrar_produto()
         elif opcao == "2":
             pass # TODO: chamar sistema.consultar_produto(...)
         elif opcao == "3":
