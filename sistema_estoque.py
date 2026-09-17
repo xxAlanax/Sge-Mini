@@ -7,6 +7,8 @@ class SistemaEstoque:
     def esta_vazio(self):
         return self.raiz is None
     def cadastrar_produto(self, codigo, nome, preco, quantidade):
+        produto = {"Nome": nome, "Preço:":preco, "Quantidade":quantidade}
+        NoProduto(codigo, produto)
     # TODO: criar/inserir um NoProduto respeitando a regra da ABP
     # (codigo menor -> esquerda, codigo maior -> direita).
     # Se o código já existir, decida e documente o comportamento
