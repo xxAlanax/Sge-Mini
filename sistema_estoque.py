@@ -41,19 +41,17 @@ class SistemaEstoque:
         return self._buscar(self.raiz,codigo)
 
     def _buscar(self, no, codigo):
-        if self.esta_vazio():
+        if no is None:
             print("Código não encontrado!")
             return None
         
         elif no.codigo == codigo:
             return no.produto
-        
-        elif no.esquerda is None and no.Direita is None:
-            print("Código não encontrado")
-            return None
+
+        elif codigo < no.codigo:
+            self._buscar(no.esquerda, codigo)
 
         else:
-            self._buscar(no.esquerda, codigo)
             self._buscar(no.direita, codigo)
 
 
