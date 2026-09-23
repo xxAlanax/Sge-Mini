@@ -1,23 +1,62 @@
-from no_produto import NoProduto
-from constantes import ESTOQUE_MINIMO_PADRAO
+from SGE.no_produto import NoProduto
+from SGE.constantes import ESTOQUE_MINIMO_PADRAO
 
 class SistemaEstoque:
     def __init__(self):
         self.raiz = None
+
     def esta_vazio(self):
         return self.raiz is None
+    
     def cadastrar_produto(self, codigo, nome, preco, quantidade):
-        produto = {"Nome": nome, "Preço:":preco, "Quantidade":quantidade}
-        NoProduto(codigo, produto)
-    # TODO: criar/inserir um NoProduto respeitando a regra da ABP
-    # (codigo menor -> esquerda, codigo maior -> direita).
-    # Se o código já existir, decida e documente o comportamento
-    # (ex.: atualizar o cadastro existente).
-        pass
+        produto = {"Nome:": nome, "Preço:":preco, "Quantidade":quantidade}
+
+        novo_produto = NoProduto(codigo, produto)
+
+        if self.esta_vazio():
+            self.raiz = novo_produto
+
+        else:
+            self._cadastrar(self.raiz, novo_produto)
+
+    def _cadastrar(self, no_atual, no):
+        if no.codigo < no_atual.codigo:
+            if no_atual.esquerda is None:
+                no_atual.esquerda = no
+
+            else:
+                self._cadastrar(no_atual.esquerda, no)
+
+        elif no.codigo > no_atual.codigo:
+            if no_atual.direita is None:
+                no_atual.direita = no
+                
+            else:
+                self._cadastrar(no_atual.direita, no)
+
+        else:
+            no_atual.produto = no.produto
+
     def consultar_produto(self, codigo):
-    # TODO: retornar os dados do produto com esse código,
-    # ou None se o código não existir no estoque.
-        pass
+        return self._buscar(self.raiz,codigo)
+
+    def _buscar(self, no, codigo):
+        if self.esta_vazio():
+            print("Código não encontrado!")
+            return None
+        
+        elif no.codigo == codigo:
+            return no.produto
+        
+        elif no.esquerda is None and no.Direita is None:
+            print("Código não encontrado")
+            return None
+
+        else:
+            self._buscar(no.esquerda, codigo)
+            self._buscar(no.direita, codigo)
+
+
     def listar_catalogo(self):
     # TODO: retornar uma lista de produtos ordenada por código
     # (do menor para o maior).
