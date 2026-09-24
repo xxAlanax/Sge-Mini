@@ -1,5 +1,5 @@
-from SGE.no_produto import NoProduto
-from SGE.constantes import ESTOQUE_MINIMO_PADRAO
+from no_produto import NoProduto
+from constantes import ESTOQUE_MINIMO_PADRAO, MSG_PRODUTO_NAO_ENCONTRADO
 
 class SistemaEstoque:
     def __init__(self):
@@ -42,7 +42,7 @@ class SistemaEstoque:
 
     def _buscar(self, no, codigo):
         if no is None:
-            print("Código não encontrado!")
+            print(MSG_PRODUTO_NAO_ENCONTRADO)
             return None
         
         elif no.codigo == codigo:
@@ -56,9 +56,17 @@ class SistemaEstoque:
 
 
     def listar_catalogo(self):
-    # TODO: retornar uma lista de produtos ordenada por código
-    # (do menor para o maior).
-        pass
+        return self._listar(self.raiz)
+
+    def _listar(self, no):
+        if no is None:
+            return None
+        
+        else:
+            self._buscar(no.esquerda)
+            print(no.codigo, no.produto)
+            self._buscar(no.direita)
+
     def calcular_valor_total_estoque(self):
     # TODO: retornar o valor total do estoque
     # (soma de preco * quantidade de todos os produtos).
