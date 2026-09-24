@@ -15,6 +15,14 @@ def main():
             qtd = int(input("Quantidade:"))
             sistema.cadastrar_produto(codigo, nome, preco, qtd)
 
+            # Modificação
+            sistema.cadastrar_produto(
+                codigo,
+                nome,
+                preco,
+                quantidade
+            )
+
             print("Produto cadastrado com sucesso!")
 
         elif opcao == "2":
