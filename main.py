@@ -26,12 +26,18 @@ def main():
             print("Produto cadastrado com sucesso!")
 
         elif opcao == "2":
-            codigo = input("Código a ser consultado:")
+            codigo = int(input("Código a ser consultado:"))
             resultado = sistema.consultar_produto(codigo)
 
             if resultado:
-                for i in resultado:
-                    print(i, resultado[i])
+                if len(str(resultado.codigo)) < 3:
+                    print("0"*(3 - len(str(resultado.codigo))) + str(resultado.codigo))
+
+                else:
+                    print(resultado.codigo)
+
+                for info in resultado.produto:
+                    print(info, resultado.produto[info])
                     
         elif opcao == "3":
             pass # TODO: chamar sistema.listar_catalogo()
