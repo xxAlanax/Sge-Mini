@@ -22,7 +22,7 @@ def main():
                 quantidade
             )
 
-            print("Produto cadastrado com sucesso!")
+            print(MSG_PRODUTO_CADASTRADO)
 
         elif opcao == "2":
             codigo = int(input("Código a ser consultado:"))
