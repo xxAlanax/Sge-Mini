@@ -46,13 +46,13 @@ class SistemaEstoque:
             return None
         
         elif no.codigo == codigo:
-            return no.produto
+            return no
 
         elif codigo < no.codigo:
-            self._buscar(no.esquerda, codigo)
+            return self._buscar(no.esquerda, codigo)
 
         else:
-            self._buscar(no.direita, codigo)
+            return self._buscar(no.direita, codigo)
 
 
     def listar_catalogo(self):
