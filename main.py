@@ -39,7 +39,7 @@ def main():
                     print(info, resultado.produto[info])
                     
         elif opcao == "3":
-            pass # TODO: chamar sistema.listar_catalogo()
+            sistema.listar_catalogo()
         elif opcao == "4":
             pass # TODO: chamar sistema.calcular_valor_total_estoque()
         elif opcao == "5":
