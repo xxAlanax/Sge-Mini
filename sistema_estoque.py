@@ -63,9 +63,10 @@ class SistemaEstoque:
             return None
         
         else:
-            self._buscar(no.esquerda)
+            self._listar(no.esquerda)
             print(no.codigo, no.produto)
-            self._buscar(no.direita)
+            self._listar(no.direita)
+
 
     def calcular_valor_total_estoque(self):
     # TODO: retornar o valor total do estoque
