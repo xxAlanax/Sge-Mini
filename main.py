@@ -1,5 +1,5 @@
-from SGE.sistema_estoque import SistemaEstoque
-from SGE.constantes import TITULO_SISTEMA, MENU_PRINCIPAL
+from sistema_estoque import SistemaEstoque
+from constantes import TITULO_SISTEMA, MENU_PRINCIPAL
 def main():
     sistema = SistemaEstoque()
 
@@ -9,8 +9,13 @@ def main():
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
-            codigo, nome, preco, qtd = input().split()
+            codigo = input("Código:")
+            nome = input("Nome:")
+            preco = float(input("Preço:"))
+            qtd = int(input("Quantidade:"))
             sistema.cadastrar_produto(codigo, nome, preco, qtd)
+
+            print("Produto cadastrado com sucesso!")
 
         elif opcao == "2":
             codigo = input("Código a ser consultado:")
