@@ -12,8 +12,7 @@ def main():
             codigo = input("Código:")
             nome = input("Nome:")
             preco = float(input("Preço:"))
-            qtd = int(input("Quantidade:"))
-            sistema.cadastrar_produto(codigo, nome, preco, qtd)
+            quantidade = int(input("Quantidade:"))
 
             # Modificação
             sistema.cadastrar_produto(
