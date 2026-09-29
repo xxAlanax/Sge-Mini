@@ -7,6 +7,7 @@ MENU_PRINCIPAL = """
 5. Ver alerta de reposição
 6. Remover produto
 7. Diagnóstico do sistema
+8. Atualizar Valores
 0. Sair
 """
 ESTOQUE_MINIMO_PADRAO = 15
