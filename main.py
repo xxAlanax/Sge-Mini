@@ -1,5 +1,5 @@
 from sistema_estoque import SistemaEstoque
-from constantes import TITULO_SISTEMA, MENU_PRINCIPAL
+from constantes import TITULO_SISTEMA, MENU_PRINCIPAL , MSG_PRODUTO_CADASTRADO
 def main():
     sistema = SistemaEstoque()
 
