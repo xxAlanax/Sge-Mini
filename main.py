@@ -56,7 +56,7 @@ def main():
             print('Altura da árvore do estoque:', sistema.diagnostico())
 
         elif opcao == "8":
-            codigo = input("Código do produto a ser atualizado: ") 
+            codigo = int(input("Código do produto a ser atualizado: "))
             nome = input("Novo nome: ") 
             preco = float(input("Novo preço: ") )
             quantidade = int(input("Nova quantidade:"))
