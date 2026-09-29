@@ -56,20 +56,15 @@ class SistemaEstoque:
 
 
     def listar_catalogo(self):
-        return self._listar(self.raiz)
+        catalogo = []
+        self._listar(self.raiz, catalogo)
+        return catalogo
 
-    def _listar(self, no):
+    def _listar(self, no, catalogo):
         if no is not None:
-            self._listar(no.esquerda)
-
-            print(no.codigo, end = " - ")
-            print(no.produto['Nome:'], end = " - ")
-            print('R$',no.produto['Preço:'], end = " - ")
-            print(no.produto['Quantidade:'], 'un')
-
-            self._listar(no.direita)
-
-
+            self._listar(no.esquerda, catalogo)
+            catalogo.append([no.codigo, no.produto['Nome:'], no.produto['Preço:'], no.produto['Quantidade:']])
+            self._listar(no.direita, catalogo)
 
     def calcular_valor_total_estoque(self):
         return self._calcular(self.raiz)
@@ -86,19 +81,18 @@ class SistemaEstoque:
             return esquerda + valor + direita        
             
     def produtos_estoque_baixo(self, minimo=ESTOQUE_MINIMO_PADRAO):
-        return self._minimo(self.raiz, minimo)
+        baixo = []
+        self._minimo(self.raiz, minimo)
+        return baixo
     
-    def _minimo(self, no, minimo):
+    def _minimo(self, no, minimo, baixo):
         if no is not None:
-            self._minimo(no.esquerda, minimo)
+            self._minimo(no.esquerda, minimo, baixo)
 
-            if no.produto["Quantidade:"] < minimo:
-                print(no.codigo, end = " - ")
-                print(no.produto['Nome:'], end = " - ")
-                print('R$',no.produto['Preço:'], end = " - ")
-                print(no.produto['Quantidade:'], 'un')
-        
-            self._minimo(no.direita, minimo)
+            if no.produto['Quantidade:'] < minimo:
+                baixo.append([no.codigo, no.produto['Nome:'], no.produto['Preço:'], no.produto['Quantidade:']])
+                
+            self._minimo(no.direita, minimo, baixo)
     
     def remover_produto(self, codigo):
         self.raiz = self._remover(self.raiz, codigo)
