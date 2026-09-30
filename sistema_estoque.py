@@ -1,5 +1,6 @@
 from no_produto import NoProduto
-from constantes import ESTOQUE_MINIMO_PADRAO, MSG_PRODUTO_REMOVIDO, MSG_PRODUTO_NAO_ENCONTRADO
+# modificação
+from constantes import ESTOQUE_MINIMO_PADRAO, MSG_PRODUTO_REMOVIDO, MSG_PRODUTO_NAO_ENCONTRADO, MSG_PRODUTO_ATUALIZADO, ARQUIVO_EXPORTACAO
 
 class SistemaEstoque:
     def __init__(self):
@@ -8,9 +9,10 @@ class SistemaEstoque:
     def esta_vazio(self):
         return self.raiz is None
     
+# Cadastrando Produto
     def cadastrar_produto(self, codigo, nome, preco, quantidade):
         produto = {"Nome:": nome, "Preço:":preco, "Quantidade:":quantidade}
-
+        # Objeto
         novo_produto = NoProduto(codigo, produto)
 
         if self.esta_vazio():
@@ -37,6 +39,7 @@ class SistemaEstoque:
         else:
             no_atual.produto = no.produto
 
+# Consulta
     def consultar_produto(self, codigo):
         return self._buscar(self.raiz,codigo)
 
@@ -54,7 +57,7 @@ class SistemaEstoque:
         else:
             return self._buscar(no.direita, codigo)
 
-
+# Listar Catalogo
     def listar_catalogo(self):
         catalogo = []
         self._listar(self.raiz, catalogo)
@@ -66,6 +69,7 @@ class SistemaEstoque:
             catalogo.append([no.codigo, no.produto['Nome:'], no.produto['Preço:'], no.produto['Quantidade:']])
             self._listar(no.direita, catalogo)
 
+# Calculo do valor do Estoque
     def calcular_valor_total_estoque(self):
         return self._calcular(self.raiz)
 
@@ -78,11 +82,13 @@ class SistemaEstoque:
             direita = self._calcular(no.direita)
             valor = no.produto['Preço:'] * no.produto['Quantidade:']
 
-            return esquerda + valor + direita        
-            
+            return esquerda + valor + direita
+        
+# Estoque baixo            
     def produtos_estoque_baixo(self, minimo=ESTOQUE_MINIMO_PADRAO):
         baixo = []
-        self._minimo(self.raiz, minimo)
+    #Modificação
+        self._minimo(self.raiz, minimo, baixo)
         return baixo
     
     def _minimo(self, no, minimo, baixo):
@@ -94,6 +100,7 @@ class SistemaEstoque:
                 
             self._minimo(no.direita, minimo, baixo)
     
+# Remover produtos
     def remover_produto(self, codigo):
         self.raiz = self._remover(self.raiz, codigo)
     
@@ -158,6 +165,8 @@ class SistemaEstoque:
 
         return 1 + max(esquerda, direita)
 
+
+# Atualizar preco
     def atualizar_valores (self, codigo, nome, preco, quantidade):
         self._atualizar(self.raiz, codigo, nome, preco, quantidade)
 
@@ -170,10 +179,23 @@ class SistemaEstoque:
                 no.produto['Nome:'] = nome
                 no.produto['Preço:'] = preco
                 no.produto['Quantidade:'] = quantidade
-        
+            # Modificação
+                print(MSG_PRODUTO_ATUALIZADO)
+# Modificação
         elif codigo < no.codigo:
-            return self._atualizar(no.esquerda, codigo)
+            return self._atualizar(no.esquerda, codigo, nome, preco, quantidade)
         
         else:
-            return self._atualizar(no.direita, codigo)
+            return self._atualizar(no.direita, codigo, nome, preco, quantidade)
         
+# Exportar catalogo para .txt (modificação)
+    def exportar_catalogo(self, arq_exportado=ARQUIVO_EXPORTACAO):
+        catalogo = self.listar_catalogo()
+
+        with open(arq_exportado, "w", encoding="utf-8") as arquivo:
+            arquivo.write("CÓDIGO - NOME - PREÇO - QUANTIDADE\n")
+
+            for codigo, nome, preco, quantidade in catalogo:
+                arquivo.write(f"{codigo:03d} - {nome} - R$ {preco:.2f} - {quantidade} un\n")
+
+        return len(catalogo)
