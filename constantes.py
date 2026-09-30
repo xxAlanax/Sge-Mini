@@ -8,6 +8,8 @@ MENU_PRINCIPAL = """
 6. Remover produto
 7. Diagnóstico do sistema
 8. Atualizar Valores
+# Modificação
+9. Exportar catálogo (TXT)
 0. Sair
 """
 ESTOQUE_MINIMO_PADRAO = 15
@@ -15,3 +17,7 @@ ESTOQUE_MINIMO_PADRAO = 15
 MSG_PRODUTO_NAO_ENCONTRADO = "Produto não encontrado."
 MSG_PRODUTO_CADASTRADO = "Produto cadastrado com sucesso."
 MSG_PRODUTO_REMOVIDO = "Produto removido com sucesso."
+# Modificação
+MSG_PRODUTO_ATUALIZADO = "Produto atualizado com sucesso."
+MSG_CATALOGO_EXPORTADO = "Catálogo exportado com sucesso."
+ARQUIVO_EXPORTACAO = "catalogo.txt"
